@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+				template="/template/masterLayout.xhtml">
+	
+	<ui:define name="head-extra">
+        <h:outputStylesheet library="css" name="cars.css" />
+    </ui:define>
+    <ui:define name="pageTitle">Autó nyilvántartó felület</ui:define>
+    <ui:define name="content">
+		<h:form id ="carsTable">
+            <p:dataTable var="car" value="#">
+                <p:column headerText="Rendszám">
+                    <h:outputText value="#{carVo.licensePlateNumber}" />
+                </p:column>
+                <p:column headerText="Márka">
+                    <h:outputText value="#{carVo.brand}" />
+                </p:column>
+
+                <p:column headerText="Típus">
+                    <h:outputText value="#{carVo.type}" />
+                </p:column>
+
+                <p:column headerText="Szín">
+                    <h:outputText value="#{carVo.color}" />
+                </p:column>
+
+                <p:column headerText="Aktuális parkoló">
+                    <h:outputText value="#{carVo.actualCarPark.name}" />
+                </p:column>
+
+                <f:facet name="footer">
+
+                </f:facet>
+
+            </p:dataTable>
+
+        </h:form>
+	</ui:define>
+
+</ui:composition>
