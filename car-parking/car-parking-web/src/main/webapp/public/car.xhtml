@@ -11,35 +11,33 @@
     <ui:define name="pageTitle">Autó nyilvántartó felület</ui:define>
     <ui:define name="content">
 		<p:growl id="growl" showDetail="true" />  
-        
-		<p:commandButton value="Autó felvétel" onclick="PF('addCarDialog').show();" icon="fa fa-plus" id="addCarButton">
-			
-		</p:commandButton>
-
 		<h:form id ="carTable">
-            <p:dataTable var="car" value="#"
-                         >
+            <p:dataTable var="car" value="#{carView.listAllCars()}"
+						 selectionMode="single" selection="#{carRegistryView.selectedCar}" rowKey="#{car.licensePlateNumber}">
                 <p:column headerText="Rendszám">
-                    <h:outputText value="#{carVo.licensePlateNumber}" />
+                    <h:outputText value="#{car.licensePlateNumber}" />
                 </p:column>
                 <p:column headerText="Márka">
-                    <h:outputText value="#{carVo.brand}" />
+                    <h:outputText value="#{car.brand}" />
                 </p:column>
 
                 <p:column headerText="Típus">
-                    <h:outputText value="#{carVo.type}" />
+                    <h:outputText value="#{car.type}" />
                 </p:column>
 
                 <p:column headerText="Szín">
-                    <h:outputText value="#{carVo.color}" />
+                    <h:outputText value="#{car.color}" />
                 </p:column>
 
                 <p:column headerText="Aktuális parkoló">
-                    <h:outputText value="#{carVo.actualCarPark.name}" />
+                    <h:outputText value="#{car.actualCarPark.name}" />
                 </p:column>
 
                 <f:facet name="footer">
 
+					<p:commandButton value="Autó felvétel" onclick="PF('addCarDialog').show();" icon="fa fa-plus" id="addCarButton">
+
+					</p:commandButton>
 
                 </f:facet>
 
@@ -64,7 +62,7 @@
                 <p:commandButton value="OK" action="#{carForm.submit()}" update="grid carTable growl" ajax="true" type="submit" oncomplete="PF('addCarDialog').hide();" icon="fa fa-check">
 				</p:commandButton>
             </h:form>
-        </p:dialog> 
+        </p:dialog>
 	</ui:define>
 
 </ui:composition>
