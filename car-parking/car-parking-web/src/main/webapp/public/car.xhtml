@@ -5,14 +5,20 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				template="/template/masterLayout.xhtml">
-	
 	<ui:define name="head-extra">
         <h:outputStylesheet library="css" name="cars.css" />
     </ui:define>
     <ui:define name="pageTitle">Autó nyilvántartó felület</ui:define>
     <ui:define name="content">
-		<h:form id ="carsTable">
-            <p:dataTable var="car" value="#">
+		<p:growl id="growl" showDetail="true" />  
+        
+		<p:commandButton value="Autó felvétel" onclick="PF('addCarDialog').show();" icon="fa fa-plus" id="addCarButton">
+			
+		</p:commandButton>
+
+		<h:form id ="carTable">
+            <p:dataTable var="car" value="#"
+                         >
                 <p:column headerText="Rendszám">
                     <h:outputText value="#{carVo.licensePlateNumber}" />
                 </p:column>
@@ -34,11 +40,31 @@
 
                 <f:facet name="footer">
 
+
                 </f:facet>
 
             </p:dataTable>
 
         </h:form>
+		<p:dialog header="Autó hozzáadása" widgetVar="addCarDialog" modal="true" height="300" hideEffect="fade">
+            <h:form id ="addCarForm">
+                <h:panelGrid id="grid" columns="2" cellpadding="10">
+                    <p:outputLabel for="licensePlateInput" value="Rendszám:"/>
+                    <p:inputText id="licensePlateInput" value="#{carForm.car.licensePlateNumber}" required="true"/>
+
+                    <p:outputLabel for="brandInput" value="Márka:"/>
+                    <p:inputText id="brandInput" value="#{carForm.car.brand}" required="true"/>
+
+                    <p:outputLabel for="typeInput" value="Típus:"/>
+                    <p:inputText id="typeInput" value="#{carForm.car.type}" required="true"/>
+
+                    <p:outputLabel for="colorInput" value="Szín:"/>
+                    <p:inputText id="colorInput" value="#{carForm.car.color}" required="true"/>
+                </h:panelGrid>
+                <p:commandButton value="OK" action="#{carForm.submit()}" update="grid carTable growl" ajax="true" type="submit" oncomplete="PF('addCarDialog').hide();" icon="fa fa-check">
+				</p:commandButton>
+            </h:form>
+        </p:dialog> 
 	</ui:define>
 
 </ui:composition>
