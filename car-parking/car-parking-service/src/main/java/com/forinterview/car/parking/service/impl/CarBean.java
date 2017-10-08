@@ -1,6 +1,7 @@
 package com.forinterview.car.parking.service.impl;
 
 import com.forinterview.car.parking.client.api.Vo.CarVo;
+import com.forinterview.car.parking.client.api.exception.CarNotFoundException;
 import com.forinterview.car.parking.client.api.service.CarService;
 import com.forinterview.car.parking.service.database.DataBase;
 import java.util.List;
@@ -18,14 +19,14 @@ public class CarBean implements CarService {
 	}
 
 	@Override
-	public CarVo findByLicensePlateNumber(String licensePlateNumber) {
+	public CarVo findByLicensePlateNumber(String licensePlateNumber) throws CarNotFoundException {
 		List<CarVo> cars = DataBase.getCars().stream()
 				.filter(e -> e.getLicensePlateNumber().equals(licensePlateNumber))
 				.collect(Collectors.toList());
 		if (!cars.isEmpty()) {
 			return cars.get(0);
 		} else {
-			return null; //exception
+			throw new CarNotFoundException("Nincs autó az adatbázisban a ezzel rendszámmal");
 		}
 	}
 
@@ -42,12 +43,21 @@ public class CarBean implements CarService {
 
 	@Override
 	public boolean isContainsCar(final String licensePlateNumber) {
-		return findByLicensePlateNumber(licensePlateNumber) == null;
+		try {
+			findByLicensePlateNumber(licensePlateNumber);
+			return true;
+		} catch (CarNotFoundException e) {
+			return false;
+		}
 	}
 
 	@Override
-	public void deleteCarVo(CarVo car) {
-		DataBase.getCars().remove(car);
-	}
+	public void deleteCarVo(CarVo car) throws CarNotFoundException {
+		if (DataBase.getCars().contains(car)) {
+			DataBase.getCars().remove(car);
+		} else {
+			throw new CarNotFoundException("Nincs ilyen autó az adatbázisban!");
+		}
 
+	}
 }

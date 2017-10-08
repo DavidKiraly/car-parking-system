@@ -2,22 +2,21 @@ package com.forinterview.car.parking.web.form;
 
 import com.forinterview.car.parking.client.api.Vo.CarVo;
 import com.forinterview.car.parking.client.api.service.CarService;
-import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import lombok.Data;
 
 
 @RequestScoped
 @Data
-@Named("carForm")
-public class CarForm implements Serializable{
+@ManagedBean(name="carForm")
+public class CarForm{
 	
-	@EJB(mappedName="CarService")
+	@EJB
 	private CarService carService;
 
     private CarVo car;
