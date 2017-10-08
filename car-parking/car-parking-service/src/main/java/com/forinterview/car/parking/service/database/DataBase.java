@@ -6,15 +6,14 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-
 public final class DataBase {
-	
-	@Getter
-    @Setter
-    private static List<CarVo> cars;
 
-    @Getter
-    @Setter
-    private static List<CarParkVo> carParks;
-	
+	@Getter
+	@Setter
+	private static List<CarVo> cars;
+
+	@Getter
+	@Setter
+	private static List<CarParkVo> carParks;
+
 }

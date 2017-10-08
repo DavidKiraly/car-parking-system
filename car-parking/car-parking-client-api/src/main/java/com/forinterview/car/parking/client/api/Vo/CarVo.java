@@ -11,14 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CarVo {
-	
+
 	private String licensePlateNumber;
-    private String brand;
+	private String brand;
 	private String color;
 	private String type;
 	private Date parkingBegin;
 	private Date parkingEnd;
 	private CarParkVo actualCarPark;
-	
-	
+
 }
