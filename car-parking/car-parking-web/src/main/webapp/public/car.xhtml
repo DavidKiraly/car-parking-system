@@ -13,8 +13,10 @@
 		<p:growl id="growl" showDetail="true" />  
 		<h:form id ="carTable">
             <p:dataTable var="car" value="#{carView.listAllCars()}"
-						 selectionMode="single" selection="#{carRegistryView.selectedCar}" rowKey="#{car.licensePlateNumber}">
-                <p:column headerText="Rendszám">
+						 selectionMode="single" selection="#{carView.selectedCar}" rowKey="#{car.licensePlateNumber}">
+                <p:ajax event="rowSelect" update="parkingButton" />
+                <p:ajax event="rowUnselect" update="parkingButton" />
+				<p:column headerText="Rendszám">
                     <h:outputText value="#{car.licensePlateNumber}" />
                 </p:column>
                 <p:column headerText="Márka">
@@ -34,12 +36,13 @@
                 </p:column>
 
                 <f:facet name="footer">
+					<p:commandButton value="Autó felvétel" onclick="PF('addCarDialog').show();" icon="fa fa-plus" id="addCarButton"></p:commandButton>
+					<p:commandButton value="Autó törlése" update="carTable growl" actionListener="#{carView.removeSelectedCar()}"  icon="fa fa-remove" styleClass="ui-priority-primary" id="removeCarButton" />
+					<p:button value="Parkolás" outcome="carpark" id="parkingButton" disabled="#{empty carView.selectedCar}">
+						<f:param id="requestParam" name="licensePlate" value="#{carView.selectedCar.licensePlateNumber}"></f:param>
+                    </p:button>
 
-					<p:commandButton value="Autó felvétel" onclick="PF('addCarDialog').show();" icon="fa fa-plus" id="addCarButton">
-
-					</p:commandButton>
-
-                </f:facet>
+				</f:facet>
 
             </p:dataTable>
 

@@ -1,9 +1,11 @@
 package com.forinterview.car.parking.service.impl;
 
+import com.forinterview.car.parking.client.api.Vo.CarParkVo;
 import com.forinterview.car.parking.client.api.Vo.CarVo;
 import com.forinterview.car.parking.client.api.exception.CarNotFoundException;
 import com.forinterview.car.parking.client.api.service.CarService;
 import com.forinterview.car.parking.service.database.DataBase;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.Local;
@@ -60,4 +62,14 @@ public class CarBean implements CarService {
 		}
 
 	}
+
+	@Override
+    public void modifyCarParkAndDateInterval(final String licensePlateNumber, final CarParkVo carPark,
+            final Date parkingBegin, final Date parkingEnd) throws CarNotFoundException {
+       
+        CarVo actualCar = findByLicensePlateNumber(licensePlateNumber);
+        actualCar.setActualCarPark(carPark);
+        actualCar.setParkingBegin(parkingBegin);
+        actualCar.setParkingEnd(parkingEnd);
+    }
 }

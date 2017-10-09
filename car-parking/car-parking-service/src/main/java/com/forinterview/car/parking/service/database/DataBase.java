@@ -28,35 +28,23 @@ public final class DataBase {
 
 	static {
 
-		CarParkVo defaultCarPark;
-		defaultCarPark = CarParkVo.builder()
-				.name("nincs")
+		
+		CarParkVo firstCarPark;
+		firstCarPark = CarParkVo.builder()
+				.name("EgyParkoló")
 				.build();
-
-		String from = "0000-00-00 00:00";
-		String to = "0000-00-00 00:00";
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd kk:mm", Locale.ROOT);
-		Date begin = null;
-		Date end = null;
-		try {
-			begin = df.parse(from);
-			end = df.parse(to);
-		} catch (ParseException ex) {
-			Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		CarVo defaultCar;
-		defaultCar = CarVo.builder()
-				.brand("nincs")
-				.type("nincs")
-				.color("nincs")
-				.licensePlateNumber("nincs")
-				.actualCarPark(defaultCarPark)
-				.parkingBegin(begin)
-				.parkingEnd(end)
+		CarParkVo secondCarPark;
+		secondCarPark = CarParkVo.builder()
+				.name("MásikParkoló")
 				.build();
+		CarParkVo thirdCarPark;
+		thirdCarPark = CarParkVo.builder()
+				.name("MégegyParkoló")
+				.build();
+		
+		carParks = new ArrayList<>(Arrays.asList(firstCarPark, secondCarPark, thirdCarPark));
 
-		cars = new ArrayList<>(Arrays.asList(defaultCar));
+		cars = new ArrayList<>();
 
 	}
 	private DataBase() {
